@@ -1,0 +1,21 @@
+.stat-card {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  display: inline-block;
+  width: 150px;
+}
+
+.stat-chiffre {
+  font-size: 24px;
+  color: #0a6e31;
+  margin: 0;
+}
+
+.stat-libelle {
+  font-size: 16px;
+  margin: 5px 0 0 0;
+}
