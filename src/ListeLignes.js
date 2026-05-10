@@ -6,7 +6,7 @@ function ListeLignes({ lignes }) {
     <div className ="liste-lignes">
       <h2 className ="liste-titre">Lignes Dakar Dem Dikk</h2 >
       <p className ="liste-description">
-        { lignes . length } lignes disponibles
+        { lignes.length } lignes disponibles
       </p>
       {lignes.map(ligne => (
         <LigneBus
@@ -15,6 +15,7 @@ function ListeLignes({ lignes }) {
           depart={ligne.depart}
           arrivee={ligne.arrivee}
           arrets={ligne.arrets}
+          couleur={ligne.couleur}
         />
       ))}
     </div >
