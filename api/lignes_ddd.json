@@ -44,5 +44,21 @@
     "arrets": 11,
     "listeArrets": ["Yoff Village", "Aeroport LSS",
     "Parcelles U17", "Grand Yoff", "HLM", "Sandaga"]
+  },
+  {
+    "id": 7,
+    "numero": "21",
+    "depart": "Malika",
+    "arrivee": "Plateau",
+    "arrets": 24,
+    "listeArrets": ["Malika", "Yeumbeul", "Thiaroye Gare", "Poste Thiaroye", "Hann", "Colobane", "Plateau"]
+  },
+  {
+    "id": 8,
+    "numero": "3",
+    "depart": "Mermoz",
+    "arrivee": "Plateau",
+    "arrets": 14,
+    "listeArrets": ["Mermoz", "Fann", "Soumbédioune", "Médina", "Rebeuss", "Plateau"]
   }
 ]

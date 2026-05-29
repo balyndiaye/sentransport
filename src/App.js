@@ -4,6 +4,7 @@ import Header from './Header';
 import Recherche from './Recherche';
 import LigneBus from './LigneBus';
 import DetailLigne from './DetailLigne';
+import Carte from './Carte';
 import Footer from './Footer';
 
 function App() {
@@ -16,7 +17,12 @@ function App() {
     = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/lignes")
+    setChargement(true);
+    const url = recherche
+    ? `http://localhost:5000/lignes/recherche?q=${encodeURIComponent(recherche)}`
+    : "http://localhost:5000/lignes";
+
+      fetch(url)
       .then(response => {
         if (!response.ok) {
           throw new Error(
@@ -32,7 +38,7 @@ function App() {
         setErreur(error.message);
         setChargement(false);
       });
-  }, []);
+  }, [recherche]);
 
   const lignesFiltrees = lignes.filter(l =>
     l.depart.toLowerCase().includes(
@@ -43,11 +49,26 @@ function App() {
   );
 
   function handleClickLigne(ligne) {
-    if (ligneSelectionnee
-      && ligneSelectionnee.id === ligne.id) {
+    // Si la ligne cliquée est déjà sélectionnée, on la referme (on désélectionne)
+    if (ligneSelectionnee && ligneSelectionnee.id === ligne.id) {
       setLigneSelectionnee(null);
     } else {
-      setLigneSelectionnee(ligne);
+      // Exercice 3 : Appel à l'endpoint GET /lignes/<id> au clic
+      fetch(`http://localhost:5000/lignes/${ligne.id}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Erreur lors du chargement des détails : " + response.status);
+          }
+          return response.json();
+        })
+        .then(data => {
+          // On enregistre les données détaillées renvoyées par le serveur
+          setLigneSelectionnee(data);
+        })
+        .catch(error => {
+          console.error("Erreur détails ligne:", error);
+          alert("Impossible de charger les détails de la ligne.");
+        });
     }
   }
 
@@ -100,6 +121,7 @@ function App() {
             numero={ligne.numero}
             depart={ligne.depart}
             arrivee={ligne.arrivee}
+            arrets={ligne.arrets}
             estSelectionnee={ligneSelectionnee
               && ligneSelectionnee.id === ligne.id}
             onClick={() => handleClickLigne(ligne)}
@@ -108,6 +130,7 @@ function App() {
 
         {ligneSelectionnee
           && <DetailLigne ligne={ligneSelectionnee} />}
+          <Carte />
       </main>
       <Footer />
     </div>
