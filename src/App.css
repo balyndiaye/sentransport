@@ -31,3 +31,23 @@
     margin-right: 12px;
   }
 }
+
+.bouton-effacer {
+  margin-bottom: 20px;
+  background-color: white;
+  color: #0a6e31; /* Vert identique à votre Header */
+  border: 2px solid #0a6e31;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap; /* Empêche le texte du bouton de se couper */
+  height: 45px; /* Ajustez selon la hauteur de votre barre de recherche */
+  display: flex;
+  align-items: center;
+}
+
+.bouton-effacer:hover {
+  background-color: #0a6e31;
+  color: white; /* Inversion des couleurs au survol */
+}

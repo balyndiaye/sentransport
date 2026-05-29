@@ -9,6 +9,11 @@ import Footer from './Footer';
 function App() {
   const [recherche, setRecherche] = useState("");
   const [ligneSelectionnee, setLigneSelectionnee] = useState(null);
+  const [compteurRecherche, setCompteurRecherche] = useState(0);
+  const handleRechercheChange = (nouvelleValeur) => {
+    setRecherche(nouvelleValeur);
+    setCompteurRecherche(compteurRecherche + 1);
+};
 
   const lignes = [
     { id: 1, numero: "1", depart: "Parcelles Assainies",
@@ -58,14 +63,30 @@ function App() {
     <div className="App">
       <Header />
       <main className ="contenu">
-        <Recherche valeur={recherche} 
-                   onChange={setRecherche} />
+        <p style={{ textAlign: 'right', fontSize: '0.9em', color: '#666' }}>
+          Vous avez effectué {compteurRecherche} recherche{compteurRecherche > 1 ? 's' : ''}
+        </p>
+        <div style={{display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px'}}>
+          <div style={{ flex: 1 }}>
+            <Recherche valeur={recherche} onChange={handleRechercheChange} />
+          </div>
+          <button onClick={() => setRecherche("")} 
+            className="bouton-effacer">Effacer
+          </button>
+        </div>
+        {lignesFiltrees.length > 0 && (
         <p className ="resultat-recherche">
           {lignesFiltrees.length} ligne
-          {lignesFiltrees.length > 1 ? 's' : ''} trouvee
+          {lignesFiltrees.length > 1 ? 's' : ''} trouvée
           {lignesFiltrees.length > 1 ? 's' : ''}
         </p>
-        {lignesFiltrees.map(ligne => (
+        )}
+        {lignesFiltrees.length === 0 ? (
+        <p style={{ textAlign: 'center', marginTop: '20px' }}>
+          Aucune ligne trouvée
+        </p>
+        ) : (
+        lignesFiltrees.map(ligne => (
           <LigneBus
             key={ligne.id}
             numero={ligne.numero}
@@ -76,7 +97,8 @@ function App() {
               && ligneSelectionnee.id === ligne.id}
             onClick={() => handleClickLigne(ligne)}
           />
-        ))}
+        )))
+      }
         {ligneSelectionnee
           && <DetailLigne ligne ={ligneSelectionnee} />}
       </main>
